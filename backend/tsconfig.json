@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    // Target and Module
+    "target": "ES2020",                     // AWS Lambda supports ES2020
+    "module": "commonjs",                   // CommonJS for Lambda
+    "moduleResolution": "node",             // Node.js module resolution
+    
+    // Output
+    "outDir": "./dist",                     // Compiled output directory
+    "rootDir": "./src",                     // Source files directory
+    
+    // Strict Type-Checking
+    "strict": true,                         // Enable all strict type checks
+    "noImplicitAny": true,                  // Error on implicit any types
+    "strictNullChecks": true,               // Strict null checks
+    
+    // Module Resolution
+    "esModuleInterop": true,                // Better CommonJS/ES module interop
+    "resolveJsonModule": true,              // Allow importing JSON files
+    "allowSyntheticDefaultImports": true,   // Allow default imports
+    
+    // Source Maps
+    "sourceMap": true,                      // Generate source maps
+    "inlineSources": true,                  // Include source code in maps
+    
+    // Additional Options
+    "skipLibCheck": true,                   // Skip type checking of .d.ts files
+    "forceConsistentCasingInFileNames": true, // Ensure consistent file names
+    "removeComments": true,                 // Remove comments from output
+    
+  },
+  "include": [
+    "src/**/*"                             // Include all files in src
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.test.ts",                        // Exclude test files
+    "**/*.spec.ts",
+    "dist"                                 // Exclude output directory
+  ]
+}
