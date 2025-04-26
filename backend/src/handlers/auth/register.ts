@@ -1,0 +1,1 @@
+// AWS Lambda function to handle user registration 
