@@ -1,1 +1,27 @@
-  
+service: pollenow-backend
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  environment:
+    MONGODB_URI: ${env:MONGODB_URI, ''}
+    DB_NAME: ${env:DB_NAME, ''}
+    JWT_SECRET: ${env:JWT_SECRET, ''}
+
+plugins:
+  - serverless-offline
+
+functions:
+  register:
+    handler: src/handlers/auth/register.handler
+    events:
+      - http:
+          path: auth/register
+          method: post
+          cors: true
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+    noPrependStageInUrl: true

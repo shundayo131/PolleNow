@@ -17,3 +17,24 @@ export const generateToken = (payload: TokenPayload): string => {
   });
 }
 
+// generate refresh token
+export const generateRefreshToken = (payload: TokenPayload): string => {
+  return jwt.sign(payload, JWT_SECRET, {
+    expiresIn: REFRESH_TOKEN_EXPIRES_IN as any, // TypeScript doesn't recognize the type of expiresIn
+    algorithm: 'HS256',
+  });
+}
+
+// verify JWT token
+export const verifyToken = (token: string): TokenPayload => {
+  try {
+    return jwt.verify(token, JWT_SECRET) as TokenPayload;
+  } catch (error) {
+    throw new Error('Invalid token');
+  }
+}
+
+// decode JWT token
+export const decodeToken = (token: string): any => {
+  return jwt.decode(token);
+}
