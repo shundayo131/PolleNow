@@ -31,9 +31,19 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<any> => {
       },
       body: JSON.stringify(result),
     };
-  } catch (error) {
-    console.error('Login error:', error);    
-    
-    // TODO: error handling 
-  }
+    } catch (error) {
+      console.error('Login error:', error);
+      
+      const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+      const statusCode = errorMessage === 'Invalid email or password' ? 401 : 500;
+      
+      return {
+        statusCode,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+        },
+        body: JSON.stringify({ message: errorMessage }),
+      };
+    }
 }

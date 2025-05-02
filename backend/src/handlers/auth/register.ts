@@ -43,15 +43,17 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<any> => {
 
   } catch (error) {
     console.error('Registration error:', error);
-
-    // TODO: custom error handling to address type error 
+    
+    const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+    const statusCode = errorMessage === 'User already exists' ? 409 : 500;
+    
     return {
-      // statusCode: error.message === 'User already exists' ? 409 : 500,
-      // headers: {
-      //   'Content-Type': 'application/json',
-      //   'Access-Control-Allow-Origin': '*',
-      // },
-      // body: JSON.stringify({ message: error.message || 'Internal server error' }),
+      statusCode,
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
+      body: JSON.stringify({ message: errorMessage }),
     };
   }
 }

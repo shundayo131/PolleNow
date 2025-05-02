@@ -8,6 +8,9 @@ export interface User {
   name: string;
   createdAt: Date;
   updatedAt: Date;
+  refreshToken?: string;
+  passwordResetToken?: string;
+  passwordResetExpires?: Date;
 }
 
 // Input type - only fields needed for registration
