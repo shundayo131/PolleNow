@@ -1,15 +1,15 @@
-// AWS Lambda function to handle user registration 
-
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import { AuthService } from '../../services/authService';
 import { UserInput } from '../../models/user';
 
+// Lambda function to handle user registration 
 export const handler: APIGatewayProxyHandler = async (event): Promise<any> => {
   try {
+    // Parse the request body 
     const body = JSON.parse(event.body || '{}');
     const { email, password, name } = body;
 
-    // Return 400 if any field is missing
+    // Validate required fields
     if (!body.email || !body.password || !body.name) {
       return {
         statusCode: 400,
@@ -21,14 +21,14 @@ export const handler: APIGatewayProxyHandler = async (event): Promise<any> => {
       };
     }
 
-    // Create a user input object 
+    // Construct the user input object
     const userInput: UserInput = {
       email,
       password,
       name,
     };
 
-    // Call the AuthService to register the user
+    // Register the user using AuthService 
     const result = await AuthService.register(userInput);
 
     // Return success response
