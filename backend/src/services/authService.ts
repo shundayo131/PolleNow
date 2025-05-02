@@ -10,7 +10,7 @@ export class AuthService {
   // Register user
   static async register(userInput: UserInput) {
     const { email, password, name } = userInput;
-    
+
     const db = await connectToDatabase();
     const usersCollection = db.collection<User>('users');
 
@@ -54,7 +54,7 @@ export class AuthService {
   // Login user
   static async loginUser(email: string, password: string) {
     // Connect to the database
-
+    
     // Find user by email
 
     // Veryfy password 
