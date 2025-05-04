@@ -172,6 +172,7 @@ export class AuthService {
       }
     );
     
+    // TODO 
     // In a real app, send email with reset link
     // For demo purposes, we'll just return the token
     return { 
