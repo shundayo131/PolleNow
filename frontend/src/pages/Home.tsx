@@ -1,7 +1,26 @@
+import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import api from '../services/api';
 
 const Home: React.FC = () => {
   const { user, logout } = useAuth();
+  const [protectedData, setProtectedData] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  
+  const testProtectedRoute = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const response = await api.get('/protected');
+      setProtectedData(response.data);
+    } catch (err: any) {
+      console.error('Protected route error:', err);
+      setError(err.response?.data?.message || 'Failed to access protected route');
+    } finally {
+      setLoading(false);
+    }
+  };
   
   return (
     <div className="home-container">
@@ -14,7 +33,25 @@ const Home: React.FC = () => {
         <section className="welcome-section">
           <h2>Welcome, {user?.name}!</h2>
           <p>You have successfully logged into the application.</p>
-          <p>This is a placeholder for the main application content.</p>
+          
+          <div style={{ marginTop: '30px' }}>
+            <button 
+              onClick={testProtectedRoute} 
+              className="submit-button"
+              disabled={loading}
+            >
+              {loading ? 'Testing...' : 'Test Protected Route'}
+            </button>
+            
+            {error && <div className="error-message" style={{ marginTop: '10px' }}>{error}</div>}
+            
+            {protectedData && (
+              <div style={{ marginTop: '20px', textAlign: 'left', padding: '15px', backgroundColor: '#f8f9fa', borderRadius: '5px' }}>
+                <h3>Protected Data:</h3>
+                <pre>{JSON.stringify(protectedData, null, 2)}</pre>
+              </div>
+            )}
+          </div>
         </section>
         
         <section className="user-info">

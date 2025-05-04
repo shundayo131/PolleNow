@@ -3,7 +3,7 @@ import { AuthService } from '../../services/authService';
 import middy from '@middy/core';
 import jsonBodyParser from '@middy/http-json-body-parser';
 
-export const refreshTokenHandler: APIGatewayProxyHandler = async (event): Promise<any> => {
+const refreshTokenHandler: APIGatewayProxyHandler = async (event): Promise<any> => {
   try {
     // Parse the request body
     const body = JSON.parse(event.body || '{}');
@@ -15,7 +15,7 @@ export const refreshTokenHandler: APIGatewayProxyHandler = async (event): Promis
         statusCode: 400,
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Origin': 'http://localhost:5173',
         },
         body: JSON.stringify({ message: 'Missing required fields' }),
       };
@@ -29,7 +29,7 @@ export const refreshTokenHandler: APIGatewayProxyHandler = async (event): Promis
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'http://localhost:5173',
       },
       body: JSON.stringify(result),
     };
@@ -43,7 +43,7 @@ export const refreshTokenHandler: APIGatewayProxyHandler = async (event): Promis
       statusCode,
       headers: {
         'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': 'http://localhost:5173',
       },
       body: JSON.stringify({ message: errorMessage }),
     };

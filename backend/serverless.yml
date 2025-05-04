@@ -19,21 +19,33 @@ functions:
       - http:
           path: auth/register
           method: post
-          cors: true
+          cors: 
+            origin: 'http://localhost:5173'  # Vite's default port
+            headers:
+              - Content-Type
+              - Authorization
   login:
     handler: src/handlers/auth/login.handler
     events:
       - http:
           path: auth/login
           method: post
-          cors: true
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization
   logout:
     handler: src/handlers/auth/logout.handler
     events:
       - http:
           path: auth/logout
           method: post
-          cors: true
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization
 
   refreshToken:
     handler: src/handlers/auth/refreshToken.handler
@@ -41,14 +53,24 @@ functions:
       - http:
           path: auth/refresh-token
           method: post
-          cors: true
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization
+
   protected:
     handler: src/handlers/protected.handler
     events:
       - http:
           path: protected
           method: get
-          cors: true
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization 
+            
           
 custom:
   serverless-offline:
