@@ -27,7 +27,29 @@ functions:
           path: auth/login
           method: post
           cors: true
+  logout:
+    handler: src/handlers/auth/logout.handler
+    events:
+      - http:
+          path: auth/logout
+          method: post
+          cors: true
 
+  refreshToken:
+    handler: src/handlers/auth/refreshToken.handler
+    events:
+      - http:
+          path: auth/refresh-token
+          method: post
+          cors: true
+  protected:
+    handler: src/handlers/protected.handler
+    events:
+      - http:
+          path: protected
+          method: get
+          cors: true
+          
 custom:
   serverless-offline:
     httpPort: 3000
