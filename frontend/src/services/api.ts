@@ -42,24 +42,35 @@ api.interceptors.response.use(
         
         // If we have the necessary data to refresh token
         if (userId && refreshToken) {
-          const response = await axios.post(`${API_URL}/auth/refresh-token`, {
-            userId,
-            refreshToken
-          });
-          
-          const { accessToken } = response.data;
-          
-          // Save the new access token
-          localStorage.setItem('accessToken', accessToken);
-          
-          // Update the authorization header
-          originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-          
-          // Retry the original request
-          return api(originalRequest);
+          // Check if refresh token endpoint exists
+          try {
+            const response = await axios.post(`${API_URL}/auth/refresh-token`, {
+              userId,
+              refreshToken
+            });
+            
+            const { accessToken } = response.data;
+            
+            // Save the new access token
+            localStorage.setItem('accessToken', accessToken);
+            
+            // Update the authorization header
+            originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+            
+            // Retry the original request
+            return api(originalRequest);
+          } catch (refreshError) {
+            // If refresh token endpoint doesn't exist or refresh token is invalid
+            console.error('Token refresh failed:', refreshError);
+            localStorage.clear();
+            window.location.href = '/login';
+            return Promise.reject(refreshError);
+          }
         }
       } catch (refreshError) {
         // If refresh token is invalid, clear storage and redirect to login
+        console.error('Token refresh failed:', refreshError);
+
         localStorage.clear();
         window.location.href = '/login';
         return Promise.reject(refreshError);
