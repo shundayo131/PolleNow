@@ -47,5 +47,4 @@ const logoutHandler: APIGatewayProxyHandler = async (event: AuthenticatedEvent):
 };
 
 export const handler = middy(logoutHandler)
-  .use(jsonBodyParser())
   .use(authMiddleware());

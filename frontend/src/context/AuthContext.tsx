@@ -93,12 +93,23 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const logout = async () => {
     try {
-      // Call backend logout endpoint
-      await api.post('/auth/logout');
+      // Get the token
+      const token = localStorage.getItem('accessToken');
+      
+      // Only call backend if we have a token
+      if (token) {
+        // Call backend logout endpoint with proper headers
+        await api.post('/auth/logout', {}, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+      }
     } catch (error) {
       console.error('Logout error:', error);
     } finally {
-      // Clear storage and state
+      // Clear storage and state regardless of API call success
       localStorage.clear();
       setUser(null);
     }
