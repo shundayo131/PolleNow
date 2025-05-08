@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { RegisterCredentials } from '../types/auth';
+import { AxiosError } from 'axios';
 
 const Register: React.FC = () => {
   const [credentials, setCredentials] = useState<RegisterCredentials>({
@@ -31,8 +32,10 @@ const Register: React.FC = () => {
     try {
       await register(credentials);
       navigate('/');
-    } catch (err: any) {
-      setError(err.response?.data?.message || 'Registration failed. Please try again.');
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        setError(err.response?.data?.message || 'Registration failed. Please try again.');
+      }
     } finally {
       setIsSubmitting(false);
     }

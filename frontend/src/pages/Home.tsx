@@ -1,22 +1,27 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
+import { AxiosError } from 'axios';
 
 const Home: React.FC = () => {
   const { user, logout } = useAuth();
-  const [protectedData, setProtectedData] = useState<any>(null);
+  const [protectedData, setProtectedData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  
+
   const testProtectedRoute = async () => {
     setLoading(true);
     setError('');
     try {
       const response = await api.get('/protected');
       setProtectedData(response.data);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Protected route error:', err);
-      setError(err.response?.data?.message || 'Failed to access protected route');
+      if (err instanceof AxiosError) {
+        setError(err.response?.data?.message || 'Failed to access protected route');
+      } else {
+        setError('Failed to access protected route');
+      }
     } finally {
       setLoading(false);
     }
