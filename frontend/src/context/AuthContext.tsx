@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { User, LoginCredentials, RegisterCredentials } from '../types/auth';
 import api from '../services/api';
 
+// Set up the AuthContext with default values 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
@@ -11,8 +12,10 @@ interface AuthContextType {
   isAuthenticated: boolean;
 }
 
+// Create the AuthContext with default values 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Create a hook to use the AuthContext 
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
@@ -25,20 +28,33 @@ interface AuthProviderProps {
   children: ReactNode;
 }
 
+/**
+ * AuthProvider component to wrap the entire App and provide authentication context
+ * It manages authetication state and provides authentication functions to all child components. 
+ *   
+ * @Param {ReactNode} children - The child components to be wrapped by the AuthProvider
+ * @returns {JSX.Element} - The AuthProvider component with AuthContext 
+ */
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  // State to hold user data and loading state 
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Check if user is logged in on initial load
   useEffect(() => {
+    // Funuction to check authentication status 
     const checkAuth = async () => {
       try {
+        // Get userID and accessToken from local storage 
         const userId = localStorage.getItem('userId');
         const accessToken = localStorage.getItem('accessToken');
         
         if (userId && accessToken) {
-          // For now, we'll use stored data to create user object
-          // In a real app, you might want to fetch the user profile
+          /**
+           * For now, we are not calling the backend to verify the token.
+           */
+          
+          // Populate user state with data retrieved from local storage
           setUser({
             _id: userId,
             email: localStorage.getItem('userEmail') || '',
@@ -48,22 +64,30 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           });
         }
       } catch (error) {
+        // Clear storage if there was an error 
         console.error('Auth check error:', error);
-        // Clear storage if there was an error
         localStorage.clear();
       } finally {
+        // Set loading to false after checking auth status 
         setLoading(false);
       }
     };
     
+    // Call the checkAuth function to veriify login status 
     checkAuth();
   }, []);
 
+  /**
+   * login function to authenticate user
+   * @param credentials User credentials for login
+   */
   const login = async (credentials: LoginCredentials) => {
+    // Call the backend login endpoint with user credentials 
+    // Destructure the response to get user data and tokens 
     const response = await api.post('/auth/login', credentials);
     const { user, accessToken, refreshToken } = response.data;
     
-    // Store tokens and user data in localStorage
+    // Store tokens and user data in localStorage 
     localStorage.setItem('accessToken', accessToken);
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('userId', user._id);
@@ -72,10 +96,17 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.setItem('userCreatedAt', user.createdAt);
     localStorage.setItem('userUpdatedAt', user.updatedAt);
     
+    // Set user state with the retrieved user data 
     setUser(user);
   };
 
+  /**
+   * register function to create a new user
+   * @param credentials User credentials for registration
+   */
   const register = async (credentials: RegisterCredentials) => {
+    // Call the backend register endpoint with user credentials 
+    // Destructure the response to get user data and tokens  
     const response = await api.post('/auth/register', credentials);
     const { user, accessToken, refreshToken } = response.data;
     
@@ -88,6 +119,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     localStorage.setItem('userCreatedAt', user.createdAt);
     localStorage.setItem('userUpdatedAt', user.updatedAt);
     
+    // Set user state with the retrieved user data 
     setUser(user);
   };
 
@@ -115,6 +147,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
+  // Provide the authentication context to child components
+  // AuthProvider wraps the entire App and provides authentication context
   return (
     <AuthContext.Provider
       value={{

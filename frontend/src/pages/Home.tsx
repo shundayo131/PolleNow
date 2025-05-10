@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import api from '../services/api';
 import { AxiosError } from 'axios';
 
+// Homepage component
 const Home: React.FC = () => {
   const { user, logout } = useAuth();
   const [protectedData, setProtectedData] = useState(null);

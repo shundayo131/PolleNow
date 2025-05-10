@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { RegisterCredentials } from '../types/auth';
 import { AxiosError } from 'axios';
 
+// Register page component
 const Register: React.FC = () => {
   const [credentials, setCredentials] = useState<RegisterCredentials>({
     name: '',

@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { LoginCredentials } from '../types/auth';
 import { AxiosError } from 'axios';
 
+// Login page component
 const Login: React.FC = () => {
   const [credentials, setCredentials] = useState<LoginCredentials>({
     email: '',
