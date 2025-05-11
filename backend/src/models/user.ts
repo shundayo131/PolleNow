@@ -29,6 +29,7 @@ export interface UserResponse {
   updatedAt: Date;
 }
 
+// Function to sanitize user data before sending it to the client 
 export const sanitizeUser = (user: User): UserResponse => {
   return {
     _id: user._id?.toString() || '',
