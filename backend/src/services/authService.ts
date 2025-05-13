@@ -5,21 +5,37 @@ import { generateToken, generateRefreshToken } from '../utils/jwt';
 import { ObjectId } from 'mongodb';
 import crypto from 'crypto';
 
+/**
+ * AuthService class to handle user authentication. 
+ * Provides methods for user registration, login, logout, token refresh, and password reset. 
+ */
 export class AuthService {
-  // Register user
+  /**
+   * Register a new user 
+   * 
+   * Create a new user account with the provided detais. 
+   * Generate authenticqation tokens and store them in the database.
+   * 
+   * @param {UserInput} userInput - User input data containing email, password, and name
+   * @returns {Promise<object> } - Returns an object containing the sanitized user data and tokens
+   */
   static async register(userInput: UserInput) {
     const { email, password, name } = userInput;
 
+    // Connnect to the database and access the users collection 
     const db = await connectToDatabase();
     const usersCollection = db.collection<User>('users');
 
+    // Check if user already exists
     const existingUser = await usersCollection.findOne({ email });
     if (existingUser) {
       throw new Error('User already exists');
     }
 
+    // Hash the password before storing it 
     const hashedPassword = await hashPassword(password);
 
+    // Create a new user object 
     const newUser: User = {
       email,
       password: hashedPassword,
@@ -28,9 +44,11 @@ export class AuthService {
       updatedAt: new Date(),
     };
 
+    // Inser the new user into the database and retrieve the generated ID 
     const result = await usersCollection.insertOne(newUser);
     const user = { ...newUser, _id: result.insertedId };
-    
+ 
+    // Generate authentication tokens 
     const payload = {
       userId: user._id.toString(), 
       email: user.email
@@ -38,6 +56,7 @@ export class AuthService {
     const accessToken = generateToken(payload);
     const refreshToken = generateRefreshToken(payload);
 
+    // Update the user with the refresh token 
     await usersCollection.updateOne(
       { _id: user._id },
       { $set: { refreshToken } }
@@ -50,7 +69,17 @@ export class AuthService {
     };
   }
 
-  // Login user
+
+  /**
+   * Authenticate a user with email and password.
+   *
+   * Verify credentials and generate authentication tokens, 
+   * and update the user's refresh token in the databsae. 
+   *  
+   * @param {string} email - User's email address
+   * @param {string} password - User's password (plaintext)
+   * @returns {Promise<Object>} User data and authentication tokens
+   */
   static async loginUser(email: string, password: string) {
     // Connect to the database
     const db = await connectToDatabase();
@@ -90,7 +119,16 @@ export class AuthService {
     };
   }
 
-  // Logout user
+
+  /**
+   * Log out a user by invalidating the refresh token
+   * 
+   * Removes the stored refresh token from the database, 
+   * effectively logging the user out.
+   * 
+   * @param {string} userId - ID of the user to log out
+   * @returns {Promise<Object>} - Returns a success message
+   */
   static async logoutUser(userId: string) {
     // Connect to the database
     const db = await connectToDatabase();
@@ -112,7 +150,17 @@ export class AuthService {
     return { success: true };
   }
 
-  // Refresh token
+
+  /**
+   * Generate a new access token using a refresh token
+   * 
+   * Validates the provided refresh token against the stored token
+   * and issues a new access token if valid.
+   * 
+   * @param {string} userId - ID of the user requesting token refresh
+   * @param {string} refreshToken - Current refresh token
+   * @returns {Promise<Object>} New access token
+   */
   static async refreshToken(userId: string, refreshToken: string) {
     // Connect to the database
     const db = await connectToDatabase();
@@ -138,7 +186,16 @@ export class AuthService {
     return { accessToken };
   }
 
-  // forgot password
+
+  /**
+   * Initiate password reset process
+   * 
+   * Generates a secure reset token, stores its hashed value with expiration,
+   * and returns the token to be sent to the user (typically via email).
+   * 
+   * @param {string} email - Email of user requesting password reset
+   * @returns {Promise<Object>} Reset token and confirmation message 
+   */
   static async forgotPassword(email: string) {
     // Connect to the database
     const db = await connectToDatabase();
@@ -183,7 +240,17 @@ export class AuthService {
     };
   }
 
-  // Reset password
+  
+  /**
+   * Complete password reset with new password
+   * 
+   * Validates the reset token, updates the user's password,
+   * and removes the reset token fields from the user document.
+   * 
+   * @param {string} resetToken - Token provided to user for password reset
+   * @param {string} newPassword - New password to set
+   * @returns {Promise<Object>} Success confirmation message
+   */
   static async resetPassword(resetToken: string, newPassword: string) {
     // Connect to the database
     const db = await connectToDatabase();
