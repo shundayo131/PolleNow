@@ -1,5 +1,4 @@
 // database configuration
-
 import { MongoClient, Db } from 'mongodb';
 
 // Cache the database connection to avoid multiple connections

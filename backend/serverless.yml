@@ -8,6 +8,8 @@ provider:
     MONGODB_URI: ${env:MONGODB_URI, ''}
     DB_NAME: ${env:DB_NAME, ''}
     JWT_SECRET: ${env:JWT_SECRET, ''}
+    GOOGLE_MAPS_API_KEY: ${env:GOOGLE_MAPS_API_KEY, ''}
+
 
 plugins:
   - serverless-offline
