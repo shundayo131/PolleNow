@@ -1,7 +1,13 @@
 import { GeocodingResponse, Coordinates } from '../types/geocodingTypes';
 
+//GeocodingService class to handle geocoding operations
 export class GeocodingService {
-  // TODO: implement a method to convert a zipcode to coordinates  
+  /**
+   * Get coordinates from Google Maps API using a zipcode
+   * 
+   * @param zipcode - The zipcode to geocode
+   * @returns {Promise<Coordinates>} - Returns an object containing the coordinates (latitude and longitude) of the zipcode 
+   */
   static async getCoordinates(zipcode: string): Promise<Coordinates> {
     // Get Google Maps API key from environment variables and check if it exists
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
