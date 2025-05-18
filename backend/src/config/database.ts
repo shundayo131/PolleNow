@@ -22,9 +22,10 @@ export const connectToDatabase = async (): Promise<Db> => {
   // Create a new MongoDB client and connect to the database
   const client = await MongoClient.connect(process.env.MONGODB_URI as string);
 
-  // Get a reference to the specified database 
-  // client.db() doesn't create the database 
-  // if it doesn't exist, MongoDB creates it automatically when you first write to it
+  /**
+   * Get a reference to the specified database 
+   * if it doesn't exist, MongoDB creates it automatically when you first write to it
+   */
   const db = client.db(process.env.DB_NAME);
 
   // Cache the database connection 
