@@ -29,7 +29,10 @@ const saveLocationHandler = async (event: AuthenticatedEvent): Promise<any> => {
       };
     }
 
-    // Parse the request body
+    /**
+     * Parsing the request body.
+     * Considering to use 'jsonBodyParser' middleware. 
+     */
     const body = JSON.parse(event.body || '{}');
     const { zipCode, coordinates } = body;
 
@@ -82,4 +85,4 @@ const saveLocationHandler = async (event: AuthenticatedEvent): Promise<any> => {
 // Export the handler with middleware 
 export const handler = middy(saveLocationHandler)
   .use(authMiddleware())
-  .use(jsonBodyParser());
+  // .use(jsonBodyParser()); // Remove it for now because the code above is parsing json. 
