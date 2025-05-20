@@ -22,7 +22,7 @@ functions:
           path: auth/register
           method: post
           cors: 
-            origin: 'http://localhost:5173'  # Vite's default port
+            origin: 'http://localhost:5173' 
             headers:
               - Content-Type
               - Authorization
@@ -72,7 +72,19 @@ functions:
             headers:
               - Content-Type
               - Authorization 
-            
+  
+  # Location endpoints - one location per user
+  saveLocation:
+    handler: src/handlers/location/saveLocation.handler
+    events:
+      - http:
+          path: location
+          method: post
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization
           
 custom:
   serverless-offline:
