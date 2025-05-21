@@ -3,6 +3,12 @@ import { authMiddleware } from '../middleware/auth';
 import middy from '@middy/core';
 import { AuthenticatedEvent } from '../types/authTypes';
 
+/**
+ * Test endpoint to verify the authentication middleware 
+ * 
+ * @param {AuthenticatedEvent} event - The event object containing the request context and authorizer information 
+ * @returns {Promise<any>} - A promise that resolves to the response object
+ */
 const protectedHandler = async (event: AuthenticatedEvent): Promise<any> => {
   try {
     const userId = event.requestContext.authorizer?.userId;
