@@ -96,7 +96,7 @@ export class UserLocationService {
     }
 
     return sanitizeUserLocation(location as UserLocation);
-  }
+  } 
 
 
   /**
