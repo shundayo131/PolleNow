@@ -85,7 +85,18 @@ functions:
             headers:
               - Content-Type
               - Authorization
-          
+  getLocation:
+    handler: src/handlers/location/getLocation.handler
+    events:
+      - http:
+          path: location
+          method: get
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization
+
 custom:
   serverless-offline:
     httpPort: 3000
