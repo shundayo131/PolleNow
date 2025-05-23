@@ -96,7 +96,18 @@ functions:
             headers:
               - Content-Type
               - Authorization
-
+  deleteLocation:
+    handler: src/handlers/location/deleteLocation.handler
+    events:
+      - http:
+          path: location
+          method: delete
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization
+              
 custom:
   serverless-offline:
     httpPort: 3000
