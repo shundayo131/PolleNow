@@ -2,7 +2,7 @@ import { APIGatewayProxyHandler } from 'aws-lambda';
 import { UserLocationService } from '../../services/userLocationService';
 import { authMiddleware } from '../../middleware/auth';
 import middy from '@middy/core';
-import jsonBodyParser from '@middy/http-json-body-parser';
+// import jsonBodyParser from '@middy/http-json-body-parser';
 import { AuthenticatedEvent } from '../../types/authTypes';
 import { UserLocationInput } from '../../models/userLocation';
 
