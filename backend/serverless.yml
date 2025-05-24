@@ -108,6 +108,19 @@ functions:
               - Content-Type
               - Authorization
               
+  # Pollen endpoints
+  getPollenForecast:
+    handler: src/handlers/pollen/getPollenForecast.handler
+    events:
+      - http:
+          path: pollen/forecast
+          method: get
+          cors: 
+            origin: 'http://localhost:5173'
+            headers:
+              - Content-Type
+              - Authorization
+            
 custom:
   serverless-offline:
     httpPort: 3000
