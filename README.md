@@ -11,19 +11,22 @@ PolleNow allows users to save their location and receive real-time pollen foreca
 - Health recommendation: Personalized tips based on pollen levels
 
 ### Tech stack
+- Languages: TypeScript, HTML, CSS 
 - Frontend: React, React Router, Axios, Vite
 - Backend: Node.js, AWS Lambda, MongoDB, JWT
 - External APIs: Google Pollen API, Google Maps Geocoding API
 
 ### Quick start
-```backend
+backend 
+```
 cd backend
 npm install
 cp .env  # Add your API keys
 npx serverless offline
 ```
 
-```frontend
+frontend 
+```
 cd frontend
 npm install
 npm run dev
