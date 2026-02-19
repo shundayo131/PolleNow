@@ -1,0 +1,235 @@
+{
+  "regionCode": "US",
+  "dailyInfo": [
+    {
+      "date": { "year": 2025, "month": 6, "day": 15 },
+      "pollenTypeInfo": [
+        {
+          "code": "GRASS",
+          "displayName": "Grass",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 2,
+            "category": "Low",
+            "indexDescription": "Low pollen levels",
+            "color": { "green": 0.54 }
+          },
+          "healthRecommendations": ["People with grass pollen allergy may experience mild symptoms."]
+        },
+        {
+          "code": "TREE",
+          "displayName": "Tree",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 4,
+            "category": "High",
+            "indexDescription": "High pollen levels",
+            "color": { "red": 1.0 }
+          },
+          "healthRecommendations": [
+            "Limit outdoor activity during peak pollen hours.",
+            "Keep windows closed and use air filtration."
+          ]
+        },
+        {
+          "code": "WEED",
+          "displayName": "Weed",
+          "inSeason": false,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 0,
+            "category": "None",
+            "indexDescription": "No pollen",
+            "color": {}
+          }
+        }
+      ],
+      "plantInfo": []
+    },
+    {
+      "date": { "year": 2025, "month": 6, "day": 16 },
+      "pollenTypeInfo": [
+        {
+          "code": "GRASS",
+          "displayName": "Grass",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 2,
+            "category": "Low",
+            "indexDescription": "Low pollen levels",
+            "color": { "green": 0.54 }
+          }
+        },
+        {
+          "code": "TREE",
+          "displayName": "Tree",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 3,
+            "category": "Moderate",
+            "indexDescription": "Moderate pollen levels",
+            "color": { "red": 0.96, "green": 0.62 }
+          }
+        },
+        {
+          "code": "WEED",
+          "displayName": "Weed",
+          "inSeason": false,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 0,
+            "category": "None",
+            "indexDescription": "No pollen",
+            "color": {}
+          }
+        }
+      ],
+      "plantInfo": []
+    },
+    {
+      "date": { "year": 2025, "month": 6, "day": 17 },
+      "pollenTypeInfo": [
+        {
+          "code": "GRASS",
+          "displayName": "Grass",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 1,
+            "category": "Very Low",
+            "indexDescription": "Very low pollen levels",
+            "color": { "green": 0.69 }
+          }
+        },
+        {
+          "code": "TREE",
+          "displayName": "Tree",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 4,
+            "category": "High",
+            "indexDescription": "High pollen levels",
+            "color": { "red": 1.0 }
+          }
+        },
+        {
+          "code": "WEED",
+          "displayName": "Weed",
+          "inSeason": false,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 1,
+            "category": "Very Low",
+            "indexDescription": "Very low pollen levels",
+            "color": { "green": 0.69 }
+          }
+        }
+      ],
+      "plantInfo": []
+    },
+    {
+      "date": { "year": 2025, "month": 6, "day": 18 },
+      "pollenTypeInfo": [
+        {
+          "code": "GRASS",
+          "displayName": "Grass",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 1,
+            "category": "Very Low",
+            "indexDescription": "Very low pollen levels",
+            "color": { "green": 0.69 }
+          }
+        },
+        {
+          "code": "TREE",
+          "displayName": "Tree",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 3,
+            "category": "Moderate",
+            "indexDescription": "Moderate pollen levels",
+            "color": { "red": 0.96, "green": 0.62 }
+          }
+        },
+        {
+          "code": "WEED",
+          "displayName": "Weed",
+          "inSeason": false,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 0,
+            "category": "None",
+            "indexDescription": "No pollen",
+            "color": {}
+          }
+        }
+      ],
+      "plantInfo": []
+    },
+    {
+      "date": { "year": 2025, "month": 6, "day": 19 },
+      "pollenTypeInfo": [
+        {
+          "code": "GRASS",
+          "displayName": "Grass",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 2,
+            "category": "Low",
+            "indexDescription": "Low pollen levels",
+            "color": { "green": 0.54 }
+          }
+        },
+        {
+          "code": "TREE",
+          "displayName": "Tree",
+          "inSeason": true,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 2,
+            "category": "Low",
+            "indexDescription": "Low pollen levels",
+            "color": { "green": 0.54 }
+          }
+        },
+        {
+          "code": "WEED",
+          "displayName": "Weed",
+          "inSeason": false,
+          "indexInfo": {
+            "code": "UPI",
+            "displayName": "Universal Pollen Index",
+            "value": 0,
+            "category": "None",
+            "indexDescription": "No pollen",
+            "color": {}
+          }
+        }
+      ],
+      "plantInfo": []
+    }
+  ]
+}

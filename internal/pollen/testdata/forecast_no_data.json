@@ -1,0 +1,26 @@
+{
+  "regionCode": "US",
+  "dailyInfo": [
+    {
+      "date": { "year": 2025, "month": 1, "day": 15 },
+      "pollenTypeInfo": [
+        {
+          "code": "GRASS",
+          "displayName": "Grass",
+          "inSeason": false
+        },
+        {
+          "code": "TREE",
+          "displayName": "Tree",
+          "inSeason": false
+        },
+        {
+          "code": "WEED",
+          "displayName": "Weed",
+          "inSeason": false
+        }
+      ],
+      "plantInfo": []
+    }
+  ]
+}

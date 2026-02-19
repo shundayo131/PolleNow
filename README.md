@@ -1,46 +1,80 @@
 ### PolleNow
-A personalized pollen forecast web application that helps users manage allergies by providing location-based pollen data and health recommendations.
 
-### Overview
-PolleNow allows users to save their location and receive real-time pollen forecasts for grass, tree, and weed pollen. The app displays current conditions, 5-day forecasts, and personalized health recommendations based on Google's Pollen API data.
+A CLI tool that delivers pollen forecasts right in your terminal. Get grass, tree, and weed pollen levels for any US ZIP code with health recommendations.
 
 ### Key features
-- User authenticaiton: JWT-based login/registration 
-- Location management: save user's location for personalized forecasts 
-- Real-time pollen data: Current and 5 day pollen forecasts 
-- Health recommendation: Personalized tips based on pollen levels
+
+- 5-day pollen forecast for grass, tree, and weed
+- Health recommendations based on pollen levels
+- Compact one-line output mode
+- API response caching (1 hour TTL)
+- Guided first-run setup
 
 ### Tech stack
-- Languages: TypeScript, HTML, CSS 
-- Frontend: React, React Router, Axios, Vite
-- Backend: Node.js, AWS Lambda, MongoDB, JWT
+
+- Language: Go
+- CLI: Cobra
+- Terminal UI: Lipgloss
 - External APIs: Google Pollen API, Google Maps Geocoding API
 
+### Prerequisites
+
+- Go 1.21+
+- Google Cloud project with **Pollen API** and **Geocoding API** enabled
+- Google API key
+
 ### Quick start
-backend 
+
 ```
-cd backend
-npm install
-cp .env  # Add your API keys
-npx serverless offline
+go build -o pollenow ./cmd/pollenow
+./pollenow config set api_key YOUR_GOOGLE_API_KEY
+./pollenow 94025
 ```
 
-frontend 
+### Usage
+
 ```
-cd frontend
-npm install
-npm run dev
+pollenow [ZIP]                      # Forecast using ZIP code
+pollenow --today                    # Today only
+pollenow -d 3                       # 3-day forecast
+pollenow -c                         # Compact one-line output
+pollenow config                     # Show current config
+pollenow config set api_key KEY     # Set API key
+pollenow config set default_zip ZIP # Set default ZIP code
+pollenow config init                # Interactive setup
+pollenow version                    # Print version
 ```
 
-### API endpoints
+### Configuration
 
-| Method | Endpoint | Description | 
-|--------|----------|-------------|
-| `POST` | `/auth/register` | Create user account |
-| `POST` | `/auth/login` | User login | 
-| `POST` | `/auth/logout` | User logout | 
-| `POST` | `/auth/refresh-token` | Refresh access token | 
-| `POST` | `/location` | Save user location (ZIP code) | 
-| `GET` | `/location` | Get saved location | 
-| `DELETE` | `/location` | Delete saved location | 
-| `GET` | `/pollen/forecast?days=5` | Get pollen forecast (requires saved location) | 
+Config file: `~/.config/pollenow/config.yaml`
+
+```yaml
+api_key: "AIzaSy..."
+default_zip: "94025"
+days: 5
+```
+
+The `POLLENOW_API_KEY` environment variable overrides the config file.
+
+### Project structure
+
+```
+├── cmd/pollenow/main.go        # Entry point
+├── cli/                         # Cobra commands
+├── internal/
+│   ├── config/                  # Config load/save
+│   ├── cache/                   # File-based API response cache
+│   ├── geocoding/               # Google Geocoding API client
+│   ├── pollen/                  # Google Pollen API client + formatter
+│   ├── forecast/                # Service orchestrator
+│   └── ui/                      # Terminal rendering
+├── go.mod
+└── README.md
+```
+
+### Testing
+
+```
+go test ./...
+```

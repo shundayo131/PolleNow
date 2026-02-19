@@ -1,20 +1,5 @@
-# Module 
-node_modules/
-*/node_modules/
-
-# Environment variables
+pollenow
+*.exe
+.DS_Store
 .env
 .env.*
-
-# Build outputs
-dist/
-build/
-*/dist/
-*/build/
-
-# IDE
-.DS_Store
-
-# AWS
-.serverless/
-.aws/
